@@ -404,17 +404,14 @@ public class YaccServiceImpl implements YaccService {
         name);
                 
         if (requireMatchingAuthorName && !commit.getCommitter().getName().equalsIgnoreCase(name)) {
-            if (requireMatchingAuthorName && !commit.getCommitter().getName().equalsIgnoreCase(displayName)) {
+            String errorMsg = String.format("expected committer name '%s' or '%s' but found '%s'", name, displayName, commit.getCommitter().getName());
+            if (!commit.getCommitter().getName().equalsIgnoreCase(displayName)) {
                 log.debug("requireMatchingAuthorName={} authorName={} stashName={}", requireMatchingAuthorName, commit.getCommitter().getName(),
                 displayName);
 
-                errors.add(new YaccError(YaccError.Type.COMMITTER_NAME,
-                String.format("expected committer name '%s' but found '%s'", displayName,
-                        commit.getCommitter().getName())));
+                errors.add(new YaccError(YaccError.Type.COMMITTER_NAME, errorMsg));
             } else {     
-                errors.add(new YaccError(YaccError.Type.COMMITTER_NAME,
-                        String.format("expected committer name '%s' but found '%s'", name,
-                                commit.getCommitter().getName())));
+                errors.add(new YaccError(YaccError.Type.COMMITTER_NAME, errorMsg));
             }
         }
 
