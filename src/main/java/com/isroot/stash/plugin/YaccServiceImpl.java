@@ -397,11 +397,11 @@ public class YaccServiceImpl implements YaccService {
 
         List<YaccError> errors = Lists.newArrayList();
 
-        log.debug("requireMatchingAuthorName={} authorName={} stashName={}", requireMatchingAuthorName, commit.getCommitter().getName(),
-                stashUser.getName());
-
-        String name = stashUser.getName();
         String displayName = removeGitCrud(stashUser.getDisplayName());
+        String name = displayName.replaceAll("(.*)?(\s\(.*\))", "$1");
+
+        log.debug("requireMatchingAuthorName={} authorName={} stashName={}", requireMatchingAuthorName, commit.getCommitter().getName(),
+        name);
                 
         if (requireMatchingAuthorName && !commit.getCommitter().getName().equalsIgnoreCase(name)) {
             if (requireMatchingAuthorName && !commit.getCommitter().getName().equalsIgnoreCase(displayName)) {
