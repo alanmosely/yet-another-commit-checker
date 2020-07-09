@@ -398,7 +398,7 @@ public class YaccServiceImpl implements YaccService {
         List<YaccError> errors = Lists.newArrayList();
 
         String displayName = removeGitCrud(stashUser.getDisplayName());
-        String name = displayName.replaceAll("(.*)?(\s\(.*\))", "$1");
+        String name = displayName.replaceAll("(.*)?(\\s\\(.*\\))", "$1");
 
         log.debug("requireMatchingAuthorName={} authorName={} stashName={}", requireMatchingAuthorName, commit.getCommitter().getName(),
         name);
